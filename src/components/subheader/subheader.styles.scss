@@ -1,0 +1,26 @@
+
+
+
+.admi-header-container {
+    background-image: url(../../assets/images/cakes_bg_brown.png);
+    // background-size: 100%;
+    // background-repeat: no-repeat;
+    @apply -mt-16 pt-16 bg-cover;
+}
+
+.admi-sub-header-shade {
+    @apply w-full h-full bg-white/90 -mt-16 py-8;
+}
+
+.admi-sub-header-text {
+    @apply w-full px-8 sm:px-4 pt-24 pb-4 text-center;
+}
+
+.admi-sub-header-text h2 {
+    font-family: "fasthand";
+    @apply text-black font-medium text-4xl;
+}
+
+.admi-sub-header-text h6 {
+    @apply text-xs uppercase text-orange-900/80;
+}

@@ -1,0 +1,17 @@
+
+
+.admi-menu-container {
+    @apply shadow-md grid place-items-center p-2 border-t border-t-orange-300/30 bg-orange-300/10 overflow-x-auto;
+}
+
+.menu-list {
+    @apply flex gap-2 text-xs uppercase text-orange-900/80;
+}
+
+.menu-list p {
+    @apply px-7 py-2 rounded-sm hover:bg-orange-300/30 border-r border-r-orange-300/30 hover:border-none;
+}
+
+.inquiry-list {
+    @apply p-4 w-full sm:w-2/3 m-auto;
+}

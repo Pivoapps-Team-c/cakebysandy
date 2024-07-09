@@ -10,6 +10,7 @@ import { Toaster } from 'sonner';
 import PreOrderPage from './routes/preorder/preorder-page.components';
 import TermsAndConditions from './routes/terms/terms.components';
 import PrivacyPolicy from './routes/terms/privacy.components';
+import InquiryView from './routes/admin/inquiry-view.components';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path='/book' element={<PreOrderPage />} />
         <Route path='/terms' element={<TermsAndConditions />} />
         <Route path='/privacy' element={<PrivacyPolicy />} />
+        <Route path='/manage' element={<InquiryView />} />
       </Route>
     </Routes>
     <Toaster richColors/>
