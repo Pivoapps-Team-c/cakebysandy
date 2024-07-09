@@ -1,0 +1,105 @@
+
+
+// Fonts
+
+// @import url('https://fonts.googleapis.com/css2?family=Fasthand&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Fasthand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Caveat:wght@400..700&family=Fasthand&family=Great+Vibes&family=Satisfy&family=Taprom&display=swap');
+
+// .fasthand-regular {
+//     font-family: "Fasthand", cursive;
+//     font-weight: 400;
+//     font-style: normal;
+// }
+
+// .caveat-<uniquifier> {
+//     font-family: "Caveat", cursive;
+//     font-optical-sizing: auto;
+//     font-weight: <weight>;
+//     font-style: normal;
+// }
+
+// End Fonts
+
+.greatvibes {
+    font-family: "Great Vibes";
+}
+
+.fasthand {
+    font-family: "Fasthand";
+}
+
+.taprom {
+    font-family: "Taprom";
+}
+
+
+.tops {
+    // background-image: url(https://img.freepik.com/free-photo/still-life-with-appetizing-bakery-food_23-2149299457.jpg);
+    background-image: url(https://img.freepik.com/free-photo/front-view-delicious-fruity-cakes-around-holiday-tree-toys-dark-background-dessert-cake-sweet-photo-cream_140725-141746.jpg?t=st=1720238076~exp=1720241676~hmac=f6e2403d258e0495686636302433d4e8cec85c4f9a082cc40905e13f6f03cbe1&w=2000);
+    // background-size: 100%;
+    @apply shadow-md sm:w-full sm:h-auto;
+}
+
+.tops-shade {
+    @apply bg-white/50;
+}
+
+.main-container {
+    @apply w-full;
+}
+
+.content-wrapper {
+    @apply sm:mx-0 lg:mx-20 2xl:mx-40;
+}
+
+.gradient1 {
+    @apply bg-gradient-to-r from-red-500 to-purple-700;
+}
+
+.gradient2 {
+    @apply bg-gradient-to-r from-purple-700;
+}
+
+.blue-p {
+    @apply text-blue-500;
+}
+
+.brown-p {
+    @apply text-orange-700/70;
+}
+
+.football-spinner {
+    animation: App-logo-spin infinite 10s linear;
+    @apply text-9xl float-right -mt-5;
+}
+
+
+.sub-header-shade {
+    @apply w-full h-full bg-black/40 -mt-16 py-8;
+}
+
+.sub-header-text {
+    @apply w-full px-8 sm:px-4 pt-24 pb-4 text-center;
+}
+
+.sub-header-text h2 {
+    @apply text-white text-2xl uppercase;
+}
+
+.sub-header-text h6 {
+    @apply text-xs uppercase text-orange-200;
+}
+
+.form-header-text {
+    font-family: "Fasthand";
+    @apply text-3xl font-bold;
+}
+
+.mySelect {
+    @apply w-full p-2.5 text-blue-gray-700 border border-blue-gray-200 outline-none rounded-md;
+}
+
+.form1 {
+    background-image: url(../assets/images/cakes_bg_brown_7.png);
+}

@@ -1,0 +1,21 @@
+
+
+// .h1 {
+//     @apply;
+// }
+
+.TandCs h2 {
+    @apply text-blueGray-800 text-sm uppercase font-semibold border-b border-b-blue-gray-300 py-2;
+}
+
+.TandCs p {
+    @apply text-blue-gray-600 text-sm font-light py-1;
+}
+
+.TandCs strong {
+    @apply text-blue-gray-800 text-xs uppercase font-semibold;
+}
+
+.TandCs ul li {
+    @apply text-blue-gray-600 text-xs uppercase font-semibold;
+}

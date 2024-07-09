@@ -1,0 +1,22 @@
+
+
+.navbar {
+    @apply w-full h-16 sticky top-0 z-50;
+}
+
+.menu-items {
+    @apply py-4 bg-black/30 px-5 sm:rounded-md;
+}
+
+.menu-item {
+    @apply  uppercase text-white text-xs px-4 pt-4 pb-2 mr-1 rounded-t-md border-b-4 border-b-gray-700/10 hover:font-bold hover:border-b-4 hover:border-b-red-500;
+}
+
+// .text-logo {
+//     @apply text-white uppercase text-xl font-medium tracking-tight bg-red-600 py-2 px-6;
+// }
+
+.text-logo {
+    font-family: "Great Vibes";
+    @apply text-white text-3xl font-bold leading-8;
+}

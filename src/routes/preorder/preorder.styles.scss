@@ -1,0 +1,26 @@
+
+
+.signup-page {
+    @apply grid gap-2 lg:gap-4 md:flex mt-12 mb-12 sm:mb-24;
+}
+
+.signup-left {
+    @apply w-full md:w-2/6 pb-4 text-brown-700;
+}
+
+.signup-right {
+    // padding: 0 10%;
+    @apply bg-orange-100/5 px-4 md:px-12 py-8 mx-4 w-auto md:w-3/5 lg:w-4/6 2xl:w-3/6 rounded-md sm:py-20 shadow-md;
+}
+
+.steps {
+    @apply w-[calc(100%-32px)] mx-4 mb-4 p-4 border border-orange-800/40 rounded-md hover:border-orange-300/70 hover:bg-orange-300/20;
+}
+
+.steps h2 {
+    @apply font-semibold;
+}
+
+.steps p {
+    @apply text-xs font-light ml-8;
+}
