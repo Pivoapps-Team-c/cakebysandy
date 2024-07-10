@@ -9,9 +9,9 @@ export const AdmiMenu = () => {
     <>
     <div className="admi-menu-container">
         <div className="menu-list">
-            <Link to="#"><p>Inquiry</p></Link>
-            <Link to="#"><p>Orders</p></Link>
-            <Link to="#"><p className='border-none'>Docs</p></Link>
+            <Link to="/inquiry"><p>Inquiry</p></Link>
+            <Link to="/orders"><p>Orders</p></Link>
+            <Link to="/docs"><p className='border-none'>Docs</p></Link>
         </div>
     </div>
     </>

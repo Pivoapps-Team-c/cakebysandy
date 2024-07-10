@@ -1,15 +1,20 @@
 
 
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AdmiSubHeader from '../../components/subheader/admi-subheader.components'
 import { AdmiMenu } from './admi-menu.components'
+import { Link } from 'react-router-dom'
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Textarea } from '@material-tailwind/react'
+import { FaReply } from 'react-icons/fa6'
+import { TestComponent } from './test.components'
+import { OrderContext } from '../../context/order.context'
 
 const InquiryView = () => {
 
     const people = [
         {
         name: 'Leslie Alexander',
-        email: 'leslie.alexander@example.com',
+        email: 'leslie.alexander@example.comleslie. Alexander@example.com leslie.alexander@example.com',
         role: 'Co-Founder / CEO',
         imageUrl:
             'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
@@ -60,37 +65,97 @@ const InquiryView = () => {
         lastSeen: null,
         },
     ]
+
+    const [ showReply, setShowReply ] = useState(false)
+    const [open, setOpen] = React.useState(false);
+
+    // const [open, setOpen] = useState(false);
+    
+    const handleOpen = () => setOpen(!open); 
+
+    const { inquiries } = useContext(OrderContext)
+    const [ allInquiries, setAllInquiries ] = useState(inquiries)
+
+    useEffect(() => {
+        setAllInquiries(inquiries)
+    }, [inquiries])
+
+
   return (
     <>
     <AdmiSubHeader h2='Inquiry' h6='Manage inquiries here' />
     <AdmiMenu />
+    {/* <TestComponent /> */}
 
     <div className="content-wrapper2 inquiry-list">
       <ul role="list" className="divide-y divide-gray-100">
-        {people.map((person) => (
-          <li key={person.email} className="flex justify-between gap-x-6 py-5">
+        {allInquiries.map((item) => (
+          <li key={item.email} className="flex justify-between gap-x-6 py-5">
             <div className="flex min-w-0 gap-x-4">
-              <img className="h-8 w-8 flex-none rounded-full bg-gray-50" src={person.imageUrl} alt="" /> 
+              <img className="h-8 w-8 flex-none rounded-full bg-gray-50" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIf4R5qPKHPNMyAqV-FjS_OTBB8pfUV29Phg&s" alt="" /> 
               <div className="min-w-0 flex-auto">
-                <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
-                <p className="mt-0 truncate text-xs leading-5 text-gray-500">{person.email}</p>
-                {/* <p className="mt-0 truncate text-xs leading-5 text-gray-500">{person.email}</p> */}
+                <p className="text-sm font-semibold leading-6 text-gray-900">{item.name}</p>
+                <p className="mt-0 text-xs leading-5 text-gray-500">{item.message}</p>
+                {/* <p className="mt-0 truncate text-xs leading-5 text-gray-500">{item.email}</p> */}
+                {item.status == "no" ?
+                    <p className='reply-btn' onClick={() => setShowReply(!showReply)}><FaReply className='float-left mt-0.5' />&nbsp;&nbsp;Reply</p>
+                    :null
+                }
+                { showReply == true ? 
+                <form action="">
+                    <div className="w-full mt-2">
+                        <Textarea label="Reply Message" name="reply_msg" />
+                    </div>
+                </form>
+                :null
+                }
+                
+                {/* <Button onClick={handleOpen} variant="gradient">
+                    Open Dialog
+                </Button>
+                <Dialog open={open} handler={handleOpen}>
+                    <DialogHeader>Its a simple dialog.</DialogHeader>
+                    <DialogBody>
+                        The key to more success is to have a lot of pillows. Put it this way,
+                        it took me twenty five years to get these plants, twenty five years of
+                        blood sweat and tears, and I&apos;m never giving up, I&apos;m just
+                        getting started. I&apos;m up to something. Fan luv.
+                    </DialogBody>
+                    <DialogFooter>
+                        <Button
+                            variant="text"
+                            color="red"
+                            onClick={handleOpen}
+                            className="mr-1"
+                        >
+                            <span>Cancel</span>
+                        </Button>
+                        <Button variant="gradient" color="green" onClick={handleOpen}>
+                            <span>Confirm</span>
+                        </Button>
+                    </DialogFooter>
+                </Dialog> */}
+
               </div>
             </div>
             <div className="shrink-0 sm:flex sm:flex-col sm:items-end">
-              {person.lastSeen ? (
-                <p className="mt-0 text-xs leading-5 text-gray-500">
-                  Last seen <time dateTime={person.lastSeenDateTime}>{person.lastSeen}</time>
-                </p>
+              {item.status == "no" ? (
+                <div className="mt-0 flex items-center gap-x-1.5">
+                  <div className="flex-none rounded-full bg-orange-400/20 p-1">
+                    <div className="h-1.5 w-1.5 rounded-full bg-orange-400" />
+                  </div>
+                  <p className="text-xs leading-5 text-gray-500">Waiting</p>
+                </div>
               ) : (
                 <div className="mt-0 flex items-center gap-x-1.5">
                   <div className="flex-none rounded-full bg-emerald-500/20 p-1">
                     <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </div>
-                  <p className="text-xs leading-5 text-gray-500">Online</p>
+                  <p className="text-xs leading-5 text-gray-500">Replied</p>
                 </div>
               )}
-              <p className="text-sm leading-6 text-gray-900">{person.role}</p>
+              {/* <Link to="/gfdsfgdfg"><p className="text-sm leading-6 text-gray-900">{item.role}</p></Link> */}
+              <p className="mt-0 text-xs leading-5 text-gray-500">{item.email}</p>
             </div>
           </li>
         ))}

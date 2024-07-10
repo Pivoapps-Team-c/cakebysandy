@@ -11,6 +11,7 @@ import PreOrderPage from './routes/preorder/preorder-page.components';
 import TermsAndConditions from './routes/terms/terms.components';
 import PrivacyPolicy from './routes/terms/privacy.components';
 import InquiryView from './routes/admin/inquiry-view.components';
+import OrdersView from './routes/admin/orders-view.components';
 
 function App() {
   return (
@@ -44,6 +45,8 @@ function App() {
         <Route path='/terms' element={<TermsAndConditions />} />
         <Route path='/privacy' element={<PrivacyPolicy />} />
         <Route path='/manage' element={<InquiryView />} />
+        <Route path='/inquiry' element={<InquiryView />} />
+        <Route path='/orders' element={<OrdersView />} />
       </Route>
     </Routes>
     <Toaster richColors/>

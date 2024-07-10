@@ -15,3 +15,7 @@
 .inquiry-list {
     @apply p-4 w-full sm:w-2/3 m-auto;
 }
+
+.reply-btn {
+    @apply w-[85px] bg-gray-200/80 text-xs text-orange-900/80 px-3.5 py-1 mt-2 border rounded-sm hover:bg-white;
+}

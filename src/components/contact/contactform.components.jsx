@@ -22,6 +22,7 @@ const ContactForm = () => {
         name: '',
         email: '',
         message: '',
+        status: 'no',
         del: 'no',
         created_at: new Date(),
         updated_at: null,

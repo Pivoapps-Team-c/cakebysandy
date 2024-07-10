@@ -58,7 +58,7 @@ export const OrderProvider = ({children}) => {
   }
 
   useEffect(() => {
-    // getInquiry();
+    getInquiry();
     getOrders();
   }, [])
 
