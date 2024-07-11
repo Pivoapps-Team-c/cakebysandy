@@ -17,5 +17,9 @@
 }
 
 .reply-btn {
-    @apply w-[85px] bg-gray-200/80 text-xs text-orange-900/80 px-3.5 py-1 mt-2 border rounded-sm hover:bg-white;
+    @apply min-w-[85px] bg-gray-200/80 text-xs text-orange-900/80 px-3.5 py-1 mt-2 border rounded-md hover:bg-white;
+}
+
+.reply-btn2 {
+    @apply min-w-[85px] text-xs px-3.5 py-1 mt-2 border rounded-md hover:bg-white;
 }

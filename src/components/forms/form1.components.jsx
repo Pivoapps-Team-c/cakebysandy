@@ -37,6 +37,7 @@ export function Form1({ sendOrderStatus }) {
         delivery_add: '',
         special_inst: '',
         terms: false,
+        status: 'no',
         del: 'no',
         created_at: new Date(),
         updated_at: null,

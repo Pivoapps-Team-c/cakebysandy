@@ -65,7 +65,7 @@ const ContactForm = () => {
 
   return (
     <>
-    <div className="relative isolate overflow-hidden bg-[#1b0e0b] py-16 sm:py-24 lg:py-32">
+    <div id="contact" className="relative isolate overflow-hidden bg-[#1b0e0b] py-16 sm:py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
                 <div className="max-w-xl lg:max-w-lg">
@@ -142,9 +142,7 @@ const ContactForm = () => {
                         <PiMapPinArea className="h-6 w-6 text-white" aria-hidden="true" />
                     </div>
                     <dt className="mt-4 font-semibold text-white">Our Location</dt>
-                    <dd className="mt-2 leading-7 text-brown-200">
-                    We're open from 8 AM to 6 PM, through out every weekend.
-                    </dd>
+                    <dd className="mt-2 leading-7 text-brown-200">112 Cumberland St.<br></br>+1 207 283 1527</dd>
                     </div>
                 </dl>
             </div>

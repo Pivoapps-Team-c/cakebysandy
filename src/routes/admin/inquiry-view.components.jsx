@@ -98,7 +98,8 @@ const InquiryView = () => {
                 <p className="mt-0 text-xs leading-5 text-gray-500">{item.message}</p>
                 {/* <p className="mt-0 truncate text-xs leading-5 text-gray-500">{item.email}</p> */}
                 {item.status == "no" ?
-                    <p className='reply-btn' onClick={() => setShowReply(!showReply)}><FaReply className='float-left mt-0.5' />&nbsp;&nbsp;Reply</p>
+                    <p className='reply-btn'><FaReply className='float-left mt-0.5' />&nbsp;&nbsp;Reply</p>
+                    // <p className='reply-btn' onClick={() => setShowReply(!showReply)}><FaReply className='float-left mt-0.5' />&nbsp;&nbsp;Reply</p>
                     :null
                 }
                 { showReply == true ? 
@@ -140,14 +141,14 @@ const InquiryView = () => {
             </div>
             <div className="shrink-0 sm:flex sm:flex-col sm:items-end">
               {item.status == "no" ? (
-                <div className="mt-0 flex items-center gap-x-1.5">
+                <div className="mt-0 flex items-center gap-x-1.5 float-right">
                   <div className="flex-none rounded-full bg-orange-400/20 p-1">
                     <div className="h-1.5 w-1.5 rounded-full bg-orange-400" />
                   </div>
                   <p className="text-xs leading-5 text-gray-500">Waiting</p>
                 </div>
               ) : (
-                <div className="mt-0 flex items-center gap-x-1.5">
+                <div className="mt-0 flex items-center gap-x-1.5 float-right">
                   <div className="flex-none rounded-full bg-emerald-500/20 p-1">
                     <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </div>

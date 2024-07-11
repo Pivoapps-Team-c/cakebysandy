@@ -44,40 +44,6 @@ const callouts = [
 
     <PreorderForm />
 
-
-    {/* <div className="bg-white cake-categories">
-
-        <div className="">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-white">
-                <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
-                    <h2 className="pannel-header">What we do</h2>
-                    <h4 className='text-center uppercase text-xs tracking-widest text-brown-400'>Read a little about us</h4>
-
-                    <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
-                        {callouts.map((callout) => (
-                        <div key={callout.name} className="group relative">
-                            <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
-                                <img
-                                    src={callout.imageSrc}
-                                    alt={callout.imageAlt}
-                                    className="h-full w-full object-cover object-center"
-                                />
-                            </div>
-                            <h3 className="mt-6 text-sm text-gray-500">
-                            <a href={callout.href}>
-                                <span className="absolute inset-0" />
-                                {callout.name}
-                            </a>
-                            </h3>
-                            <p className="text-base font-semibold text-gray-900">{callout.description}</p>
-                        </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> */}
-
     <div className="bg-gray-100 cake-categories">
         {/* <h2>Our Categories</h2> */}
 
@@ -128,7 +94,7 @@ const callouts = [
                             </div>
                         </div>
 
-                        <div className="group relative feature-more">
+                        <div className="group relative feature-more bg-orange-100/60">
                             <h3>More from Sandy's</h3>
                             <p>Discover the range of delights that Sandy's Cake offers. 
                                 From decadent cakes to mouthwatering pastries, our creations are 

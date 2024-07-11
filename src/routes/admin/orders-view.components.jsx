@@ -5,7 +5,7 @@ import AdmiSubHeader from '../../components/subheader/admi-subheader.components'
 import { AdmiMenu } from './admi-menu.components'
 import { Link } from 'react-router-dom'
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Textarea } from '@material-tailwind/react'
-import { FaReply } from 'react-icons/fa6'
+import { FaCalendarDays, FaReply } from 'react-icons/fa6'
 import { TestComponent } from './test.components'
 
 import {
@@ -29,6 +29,10 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import { OrderContext } from '../../context/order.context'
+import { FaCheckCircle } from 'react-icons/fa'
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io'
+import { BsShieldExclamation } from 'react-icons/bs'
+import { TbTrash } from 'react-icons/tb'
  
 const TABS = [
   {
@@ -45,7 +49,7 @@ const TABS = [
   },
 ];
  
-const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
+const TABLE_HEAD = ["Member", "Status", "Event Details", "Cake Details"];
  
 const TABLE_ROWS = [
   {
@@ -97,17 +101,26 @@ const TABLE_ROWS = [
 
 const OrdersView = () => {
 
-    // const { orders } = useContext(OrderContext)
-    // const [ allOrders, setAllOrders ] = useState(orders)
+    const { orders } = useContext(OrderContext)
+    const [ allOrders, setAllOrders ] = useState(orders)
 
-    // useEffect(() => {
-    //     setAllOrders(orders)
-    // }, [orders])
+
+    const searchOrder = (e) => {
+
+      const searchKey = e.target.value.toLowerCase();
+      const newSearch = orders.filter(e => e.fullname.toLowerCase().includes(searchKey) || e.phone.includes(searchKey))
+      setAllOrders(newSearch)
+      // console.log(newSearch)
+    }
+
+    useEffect(() => {
+        setAllOrders(orders)
+    }, [orders])
 
 
   return (
     <>
-    <AdmiSubHeader h2='Inquiry' h6='Manage orders here' />
+    <AdmiSubHeader h2='Orders' h6='Manage orders here' />
     <AdmiMenu />
     {/* <TestComponent /> */}
 
@@ -166,7 +179,7 @@ const OrdersView = () => {
       
       <Card className="h-full w-full">
         <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className="mb-8 flex items-center justify-between gap-8">
+          {/* <div className="mb-8 flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
                 Members list
@@ -183,9 +196,10 @@ const OrdersView = () => {
                 <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
               </Button>
             </div>
-          </div>
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <Tabs value="all" className="w-full md:w-max">
+          </div> */}
+
+          <div className="flex mt-2 flex-col items-center justify-between gap-4 md:flex-row">
+            {/* <Tabs value="all" className="w-full md:w-max">
               <TabsHeader>
                 <Tab key="0" value="0">
                   &nbsp;&nbsp;All&nbsp;&nbsp;
@@ -197,10 +211,13 @@ const OrdersView = () => {
                   &nbsp;&nbsp;Closed&nbsp;&nbsp;
                 </Tab>
               </TabsHeader>
-            </Tabs>
+            </Tabs> */}
+
             <div className="w-full md:w-72">
               <Input
                 label="Search"
+                onChange={searchOrder}
+                placeholder='Search by Name / Phone'
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               />
             </div>
@@ -232,73 +249,81 @@ const OrdersView = () => {
             </thead>
             
             <tbody>
-              {TABLE_ROWS.map(
-                ({ img, name, email, job, org, online, date }, index) => {
+              {allOrders.map(
+                ({ id, fullname, email, phone, evt_date, evt_time, delivery, delivery_add, status, cake_list, special_inst }, index) => {
                   const isLast = index === TABLE_ROWS.length - 1;
                   const classes = isLast
                     ? "p-4"
                     : "p-4 border-b border-blue-gray-50";
   
                   return (
-                    <tr key={name}>
+                    <tr key={id}>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
-                          <Avatar src={img} alt={name} size="sm" />
+                          <FaCalendarDays className='w-8 h-8 bg-orange-300/20 rounded-md p-2' />
+                          {/* <Avatar src="https://www.nicepng.com/png/detail/866-8666442_schedule-icon.png" alt="" size="sm" /> */}
                           <div className="flex flex-col">
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal"
                             >
-                              {name}
+                              {fullname}
                             </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            >
-                              {email}
-                            </Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal opacity-70">{email}</Typography>
+                            <Typography variant="small" color="blue" className="font-normal opacity-70 tracking-wide">{phone}</Typography>
                           </div>
                         </div>
                       </td>
-                      <td className={classes}>
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {job}
-                          </Typography>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70"
-                          >
-                            {org}
-                          </Typography>
-                        </div>
-                      </td>
+
                       <td className={classes}>
                         <div className="w-max">
-                        {date !== "no" ?
-                          <p className='reply-btn'><FaReply className='float-left mt-0.5' />&nbsp;&nbsp;Reply</p>
-                          :null
+                        {status !== "no" ?
+                        <>
+                          <p className='reply-btn2 text-green-600'><IoMdCheckmarkCircleOutline className='float-left mt-0.5' />&nbsp;&nbsp;Closed</p>
+                        </>
+                          :
+                        <>
+                          <p className='reply-btn'><BsShieldExclamation className='float-left mt-0.5' />&nbsp;&nbsp;Waiting</p>
+                          <p className='mt-3 px-1.5 pb-1 text-xs text-red-600 border-b border-b-red-300 hover:border-b-white hover:opacity-70'>Close Order&nbsp;<TbTrash size={16} className='float-right' /></p>
+                        </>
                         }
                         </div>
                       </td>
+
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {date}
-                        </Typography>
+                        <div className="flex flex-col">
+                          <Typography variant="small" color="blue-gray" className="font-normal">{evt_date}</Typography>
+                          { delivery === "yes" ?
+                          <>
+                            <Typography variant="small" color="blue-gray" className="font-normal opacity-70">Delivery @ {evt_time}</Typography>
+                            <Typography variant="small" color='blue' className="font-normal text-xs uppercase opacity-70 border-b pb-1">{delivery_add}</Typography>
+                            {special_inst ?
+                              <>
+                                <Typography variant="small" color="blue-gray" className="text-xs opacity-60 pt-2">Del. Instructions</Typography>
+                                <Typography variant="small" color="blue-gray" className="text-xs">{special_inst}</Typography>
+                              </>
+                            :null}
+                          </>
+                          :
+                            <Typography variant="small" color="blue-gray" className="font-normal opacity-70">Pick up @ {evt_time}</Typography>
+                          }
+                        </div>
                       </td>
+
                       <td className={classes}>
-                        
+                        {/* <Typography variant="small" className="font-normal text-xs uppercase opacity-70 float-right text-blue-700 border-b border-b-blue-600 hover:opacity-50">View Details</Typography> */}
+                        <div className='pb-2 border-b border-b-orange-300'>
+                          { cake_list.map((el, i) => 
+                          <div key={i} className='text-xs'>
+                            <p>&nbsp;</p>
+                            <p className='font-medium uppercase'>{el.cake_type+' ('+el.qty+')'}</p>
+                            <p className='opacity-70 border-b pb-1 mb-1'>Flavor: {el.flavor}</p>
+                            <p className=''>{el.dietary_rests}</p>
+                            <p className=''>{el.specific_dets}</p>
+                          </div>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   );

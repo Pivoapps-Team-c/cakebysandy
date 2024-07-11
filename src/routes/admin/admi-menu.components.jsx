@@ -11,6 +11,7 @@ export const AdmiMenu = () => {
         <div className="menu-list">
             <Link to="/inquiry"><p>Inquiry</p></Link>
             <Link to="/orders"><p>Orders</p></Link>
+            <Link to="/pages"><p>Pages</p></Link>
             <Link to="/docs"><p className='border-none'>Docs</p></Link>
         </div>
     </div>

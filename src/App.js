@@ -12,6 +12,9 @@ import TermsAndConditions from './routes/terms/terms.components';
 import PrivacyPolicy from './routes/terms/privacy.components';
 import InquiryView from './routes/admin/inquiry-view.components';
 import OrdersView from './routes/admin/orders-view.components';
+import AboutPage from './routes/home/about.components';
+import PagesEdit from './routes/admin/pages.components';
+import DocsEdit from './routes/admin/docs.components';
 
 function App() {
   return (
@@ -41,12 +44,15 @@ function App() {
     <Routes>
       <Route path='/' element={<NavigationPage />}>
         <Route index element={<HomePage/>} />
+        <Route path='/about' element={<AboutPage />} />
         <Route path='/book' element={<PreOrderPage />} />
         <Route path='/terms' element={<TermsAndConditions />} />
         <Route path='/privacy' element={<PrivacyPolicy />} />
         <Route path='/manage' element={<InquiryView />} />
         <Route path='/inquiry' element={<InquiryView />} />
         <Route path='/orders' element={<OrdersView />} />
+        <Route path='/pages' element={<PagesEdit />} />
+        <Route path='/docs' element={<DocsEdit />} />
       </Route>
     </Routes>
     <Toaster richColors/>
