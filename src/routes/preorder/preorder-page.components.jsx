@@ -38,7 +38,7 @@ const PreorderPage = () => {
                         }
                         &nbsp; Step 1 - Details
                     </h2>
-                    <p>Fill in your personal/contact details</p>
+                    <p>Fill in your personal/event details</p>
                 </div>
 
                 <div className="steps" onClick={getSignUpStatus}>
@@ -51,7 +51,7 @@ const PreorderPage = () => {
                         }
                         &nbsp; Step 2 - Checkout
                     </h2>
-                    <p>Make registration payment here</p>
+                    <p>Detailed view of our privacy policie</p>
                 </div>
             </div>
 

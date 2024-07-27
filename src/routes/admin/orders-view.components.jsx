@@ -101,7 +101,7 @@ const TABLE_ROWS = [
 
 const OrdersView = () => {
 
-    const { orders } = useContext(OrderContext)
+    const { orders, updateOrder } = useContext(OrderContext)
     const [ allOrders, setAllOrders ] = useState(orders)
 
 
@@ -111,6 +111,15 @@ const OrdersView = () => {
       const newSearch = orders.filter(e => e.fullname.toLowerCase().includes(searchKey) || e.phone.includes(searchKey))
       setAllOrders(newSearch)
       // console.log(newSearch)
+    }
+
+    const closeOrder = (ord) => {
+      ord['status'] = 'yes';
+      const msg = ord.fullname+"'s order has been closed";
+      if (window.confirm("Do you want to close "+ord.fullname+"'s order?")) {
+        updateOrder(ord, msg)
+      }
+      // console.log('Order closed..! ', ord)
     }
 
     useEffect(() => {
@@ -250,14 +259,14 @@ const OrdersView = () => {
             
             <tbody>
               {allOrders.map(
-                ({ id, fullname, email, phone, evt_date, evt_time, delivery, delivery_add, status, cake_list, special_inst }, index) => {
+                (ord, index) => {
                   const isLast = index === TABLE_ROWS.length - 1;
                   const classes = isLast
                     ? "p-4"
                     : "p-4 border-b border-blue-gray-50";
   
                   return (
-                    <tr key={id}>
+                    <tr key={ord.id}>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
                           <FaCalendarDays className='w-8 h-8 bg-orange-300/20 rounded-md p-2' />
@@ -268,24 +277,24 @@ const OrdersView = () => {
                               color="blue-gray"
                               className="font-normal"
                             >
-                              {fullname}
+                              {ord.fullname}
                             </Typography>
-                            <Typography variant="small" color="blue-gray" className="font-normal opacity-70">{email}</Typography>
-                            <Typography variant="small" color="blue" className="font-normal opacity-70 tracking-wide">{phone}</Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal opacity-70">{ord.email}</Typography>
+                            <Typography variant="small" color="blue" className="font-normal opacity-70 tracking-wide">{ord.phone}</Typography>
                           </div>
                         </div>
                       </td>
 
                       <td className={classes}>
                         <div className="w-max">
-                        {status !== "no" ?
+                        {ord.status !== "no" ?
                         <>
                           <p className='reply-btn2 text-green-600'><IoMdCheckmarkCircleOutline className='float-left mt-0.5' />&nbsp;&nbsp;Closed</p>
                         </>
                           :
                         <>
                           <p className='reply-btn'><BsShieldExclamation className='float-left mt-0.5' />&nbsp;&nbsp;Waiting</p>
-                          <p className='mt-3 px-1.5 pb-1 text-xs text-red-600 border-b border-b-red-300 hover:border-b-white hover:opacity-70'>Close Order&nbsp;<TbTrash size={16} className='float-right' /></p>
+                          <p onClick={() => closeOrder(ord)} className='mt-3 px-1.5 pb-1 text-xs text-red-600 border-b border-b-red-300 hover:border-b-white hover:opacity-70'>Close Order&nbsp;<TbTrash size={16} className='float-right' /></p>
                         </>
                         }
                         </div>
@@ -293,20 +302,20 @@ const OrdersView = () => {
 
                       <td className={classes}>
                         <div className="flex flex-col">
-                          <Typography variant="small" color="blue-gray" className="font-normal">{evt_date}</Typography>
-                          { delivery === "yes" ?
+                          <Typography variant="small" color="blue-gray" className="font-normal">{ord.evt_date}</Typography>
+                          { ord.delivery === "yes" ?
                           <>
-                            <Typography variant="small" color="blue-gray" className="font-normal opacity-70">Delivery @ {evt_time}</Typography>
-                            <Typography variant="small" color='blue' className="font-normal text-xs uppercase opacity-70 border-b pb-1">{delivery_add}</Typography>
-                            {special_inst ?
+                            <Typography variant="small" color="blue-gray" className="font-normal opacity-70">Delivery @ {ord.evt_time}</Typography>
+                            <Typography variant="small" color='blue' className="font-normal text-xs uppercase opacity-70 border-b pb-1">{ord.delivery_add}</Typography>
+                            {ord.special_inst ?
                               <>
                                 <Typography variant="small" color="blue-gray" className="text-xs opacity-60 pt-2">Del. Instructions</Typography>
-                                <Typography variant="small" color="blue-gray" className="text-xs">{special_inst}</Typography>
+                                <Typography variant="small" color="blue-gray" className="text-xs">{ord.special_inst}</Typography>
                               </>
                             :null}
                           </>
                           :
-                            <Typography variant="small" color="blue-gray" className="font-normal opacity-70">Pick up @ {evt_time}</Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal opacity-70">Pick up @ {ord.evt_time}</Typography>
                           }
                         </div>
                       </td>
@@ -314,7 +323,7 @@ const OrdersView = () => {
                       <td className={classes}>
                         {/* <Typography variant="small" className="font-normal text-xs uppercase opacity-70 float-right text-blue-700 border-b border-b-blue-600 hover:opacity-50">View Details</Typography> */}
                         <div className='pb-2 border-b border-b-orange-300'>
-                          { cake_list.map((el, i) => 
+                          { ord.cake_list.map((el, i) => 
                           <div key={i} className='text-xs'>
                             <p>&nbsp;</p>
                             <p className='font-medium uppercase'>{el.cake_type+' ('+el.qty+')'}</p>

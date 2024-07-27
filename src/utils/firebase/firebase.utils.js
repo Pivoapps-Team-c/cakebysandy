@@ -159,6 +159,73 @@ export const updateOrderDoc = async (client) => {
 }
 
 
+// Pages
+
+export const createPagesDoc = async (docToAdd) => {
+    const refValue = collection(db, 'pages');
+    const allPages = await delAllPages();
+
+    if (allPages) {
+        allPages['del'] = 'yes';
+        updatePagesDoc(allPages);
+        // console.log('Been through here..! ', allPages)
+    }
+
+    try {
+        await addDoc(refValue, docToAdd);
+    } catch (error) {
+        console.log('Error occoured at Pages: ', error.message);
+    }
+    
+}
+
+export const getCurrentPage = async () => {
+    const found = [];
+    const searchRef = collection(db, "pages");
+
+    const findOtp = await getDocs(query(searchRef, where("del", "==", "no")));
+    const mapOtp = () => findOtp.forEach((doc) => {
+        found.push({...doc.data(), id: doc.id});
+    });
+    mapOtp();
+    return found[0];
+}
+
+export const getPagesDocs = async () => {
+    const docsReceiver = [];
+    const querySnapshot = await getDocs(query(collection(db, 'pages'), orderBy("created_at", "desc")));
+
+    const purMap = () => querySnapshot.forEach((doc) => {
+        docsReceiver.push({...doc.data(), id: doc.id});
+    });
+    purMap();
+    return docsReceiver;
+}
+
+export const updatePagesDoc = async (page) => {
+    const upRefValue = doc(db, 'pages', page.id);
+    try {
+        await updateDoc(upRefValue, page);
+    } catch (error) {
+        console.log('Error occoured at Pages: ', error.message);
+    }
+}
+
+export const delAllPages = async (search) => {
+    // const searchRef = await getDocs(query(collection(db, 'otpgen').where("otp", "==", otp)));
+
+    const found = [];
+    const searchRef = collection(db, "pages");
+
+    const findOtp = await getDocs(query(searchRef, where("del", "==", "no")));
+    const mapOtp = () => findOtp.forEach((doc) => {
+        found.push({...doc.data(), id: doc.id});
+    });
+    mapOtp();
+    return found[0];
+}
+
+
 
 
 

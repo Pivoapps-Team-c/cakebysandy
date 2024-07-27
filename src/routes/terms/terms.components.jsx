@@ -21,7 +21,7 @@ const TermsAndConditions = () => {
   return (
     <>
 
-    <SubHeader h2='Terms & Conditions' h6='Read and accepts our terms to register' />
+    <SubHeader h2='Terms & Conditions' h6='Read and accepts our terms to proceed' />
 
     <div className="content-wrapper">
         <div className="signup-page">
@@ -29,14 +29,14 @@ const TermsAndConditions = () => {
                 <a href="/terms">
                     <div className="steps">
                         <h2><IoWarning size='18' className='float-left mr-2 mt-1'/>&nbsp; Terms & Conditions</h2>
-                        <p>Fill in your personal/contact details</p>
+                        <p>Fill in your personal/event details</p>
                     </div>
                 </a>
 
                 <a href="/privacy">
                     <div className="steps">
                         <h2><MdPrivacyTip size='18' className='float-left mr-2 mt-1'/>&nbsp; Privacy Policy</h2>
-                        <p>Make registration payment here</p>
+                        <p>Detailed view of our privacy policie</p>
                     </div>
                 </a>
             </div>

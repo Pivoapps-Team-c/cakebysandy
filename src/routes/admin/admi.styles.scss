@@ -23,3 +23,11 @@
 .reply-btn2 {
     @apply min-w-[85px] text-xs px-3.5 py-1 mt-2 border rounded-md hover:bg-white;
 }
+
+.accordion-container h3 {
+    @apply text-xs font-light text-right;
+}
+
+.accordion-container h1 {
+    @apply text-lg font-normal;
+}

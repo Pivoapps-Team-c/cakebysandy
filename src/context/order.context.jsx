@@ -1,5 +1,5 @@
 import { Children, createContext, useEffect, useState } from "react";
-import { createOrderDoc, createInquiryDoc, getOrderDocs, getInquiryDocs, successToast, updateOrderDoc } from "../utils/firebase/firebase.utils";
+import { createOrderDoc, createInquiryDoc, getOrderDocs, getInquiryDocs, successToast, updateOrderDoc, getCurrentPage, createPagesDoc, delAllPages, updatePagesDoc } from "../utils/firebase/firebase.utils";
 
 
 export const OrderContext = createContext({
@@ -10,12 +10,16 @@ export const OrderContext = createContext({
     addOrder: () => {},
     getOrders: () => {},
     updateOrder: () => {},
+    curPage: null,
+    addPage: () => {},
+    getCurPage: () => {},
 });
 
 
 export const OrderProvider = ({children}) => {
   const [ orders, setClients ] = useState([]);
   const [ inquiries, setInquiries ] = useState([]);
+  const [ curPage, setCurPage ] = useState();
 
 
   // Inquiry
@@ -50,16 +54,44 @@ export const OrderProvider = ({children}) => {
     // console.log(clientMap)
   }
 
-  const updateOrder = async (docToUpdate) => {
+  const updateOrder = async (docToUpdate, msg) => {
     await updateOrderDoc(docToUpdate).then(
       getOrders(),
-      successToast('Update successful')
+      successToast(msg)
     );
   }
+
+
+  // Pages
+
+  const addPage = async (docToAdd, msg) => {
+
+    // const allPages = await delAllPages();
+    // return console.log(allPages);
+
+    // if (allPages) {
+    //     allPages['del'] = 'yes';
+    //     updatePagesDoc(allPages);
+    //     console.log('Been through here..! ', allPages)
+    // }
+
+    await createPagesDoc(docToAdd).then(
+      getCurPage(),
+      successToast(msg),
+    );
+  }
+
+  const getCurPage = async () => {
+    const pageMap = await getCurrentPage();
+    setCurPage(pageMap);
+    // console.log(pageMap)
+  }
+
 
   useEffect(() => {
     getInquiry();
     getOrders();
+    getCurPage();
   }, [])
 
 
@@ -67,7 +99,8 @@ export const OrderProvider = ({children}) => {
 
   const value = { 
     inquiries, addInquiry, 
-    orders, addOrder, getOrders, updateOrder
+    orders, addOrder, getOrders, updateOrder,
+    curPage, addPage, getCurPage
   };
   return (<OrderContext.Provider value={value}>{children}</OrderContext.Provider>)
 }
