@@ -42,7 +42,7 @@ export function Form1({ sendOrderStatus }) {
         created_at: new Date(),
         updated_at: null,
     }
-    const defaultCakeList = {
+    const defaultCakeField = {
         c: 0,
         cake_type: '',
         qty: '',
@@ -55,7 +55,7 @@ export function Form1({ sendOrderStatus }) {
     
     const [ allOrders, setAllOrders ] = useState(orders);
     const [ formFields, setFormFields ] = useState(defaultValues);
-    const [ CakeField, setCakeField ] = useState(defaultCakeList);
+    const [ CakeField, setCakeField ] = useState(defaultCakeField);
     // const [ orderStatus, setOrderStatus ] = useState(0);
     const [termsChecked, setTermsChecked] = useState(false);
     const [cakeDelivery, setCakeDelivery] = useState('Delivery');
@@ -113,10 +113,10 @@ export function Form1({ sendOrderStatus }) {
         // } else {
             formFields.cake_list.push(CakeField)
             setFormFields(formFields)
-            defaultCakeList['cake_type'] = CakeField['cake_type']
-            defaultCakeList['flavor'] = CakeField['cake_type']
+            defaultCakeField['cake_type'] = CakeField['cake_type']
+            defaultCakeField['flavor'] = CakeField['cake_type']
             localStorage.setItem('formFields', JSON.stringify(formFields))
-            setCakeField(defaultCakeList)
+            setCakeField(defaultCakeField)
             // console.log(CakeField)
         // }
 
@@ -128,7 +128,7 @@ export function Form1({ sendOrderStatus }) {
         // return console.log(newList)
         formFields['cake_list'] = newList
         setFormFields(formFields)
-        setCakeField(defaultCakeList)
+        setCakeField(defaultCakeField)
         successToast('Item has been removed from the list')
     }
 
@@ -179,7 +179,7 @@ export function Form1({ sendOrderStatus }) {
         const localStore = localStorage.getItem('formFields');
         if (localStore) {
             setFormFields(JSON.parse(localStore))
-            // console.log('local Store', localStore)
+            console.log('local Store', localStore)
         }
     }, [])
 

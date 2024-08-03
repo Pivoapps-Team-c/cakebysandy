@@ -12,7 +12,7 @@ export const AdmiMenu = () => {
             <Link to="/inquiry"><p>Inquiry</p></Link>
             <Link to="/orders"><p>Orders</p></Link>
             <Link to="/pages"><p>Pages</p></Link>
-            <Link to="/docs"><p className='border-none'>Docs</p></Link>
+            <Link to="/settings"><p className='border-none'>Settings</p></Link>
         </div>
     </div>
     </>

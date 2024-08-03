@@ -13,9 +13,10 @@ import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
 import { PiMapPinArea, PiMapPinAreaBold } from 'react-icons/pi'
 
 
-const ContactForm = () => {
+const ContactForm = ({ company }) => {
 
 
+    const { companyDisplayName, companyName, slogan, address1, address2, phone, email, country, logo } = company;
     const { addInquiry } = useContext(OrderContext);
 
     const defaultValues = {
@@ -142,7 +143,7 @@ const ContactForm = () => {
                         <PiMapPinArea className="h-6 w-6 text-white" aria-hidden="true" />
                     </div>
                     <dt className="mt-4 font-semibold text-white">Our Location</dt>
-                    <dd className="mt-2 leading-7 text-brown-200">112 Cumberland St.<br></br>+1 207 283 1527</dd>
+                    <dd className="mt-2 leading-7 text-brown-200">{address1} <br /> {address2}<br />{phone}</dd>
                     </div>
                 </dl>
             </div>

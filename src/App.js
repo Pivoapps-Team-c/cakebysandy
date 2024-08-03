@@ -15,6 +15,7 @@ import OrdersView from './routes/admin/orders-view.components';
 import AboutPage from './routes/home/about.components';
 import PagesEdit from './routes/admin/pages.components';
 import DocsEdit from './routes/admin/docs.components';
+import SettingsEdit from './routes/admin/settings.components';
 
 function App() {
   return (
@@ -52,7 +53,7 @@ function App() {
         <Route path='/inquiry' element={<InquiryView />} />
         <Route path='/orders' element={<OrdersView />} />
         <Route path='/pages' element={<PagesEdit />} />
-        <Route path='/docs' element={<DocsEdit />} />
+        <Route path='/settings' element={<SettingsEdit />} />
       </Route>
     </Routes>
     <Toaster richColors/>

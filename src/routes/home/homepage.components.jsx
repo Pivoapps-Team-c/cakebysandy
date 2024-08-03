@@ -1,6 +1,6 @@
 
 
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar1 from '../../components/mynavbar/navbar1.components'
 import HomeHeader from './homeheader.components'
 import CategoryItem from './category-item.components'
@@ -8,10 +8,11 @@ import PreorderForm from '../../components/forms/preorder.components'
 import cupcake from '../../assets/images/cupcakes.png'
 import wedcake from '../../assets/images/wedding-cakes.png'
 import ContactForm from '../../components/contact/contactform.components'
+import { OrderContext } from '../../context/order.context'
 
 const HomePage = () => {
 
-const callouts = [
+  const callouts = [
     {
       name: 'Category One',
       description: 'Short description from category one',
@@ -36,7 +37,61 @@ const callouts = [
     },
   ]
 
+  const defaultCompanyValues = {
+    companyDisplayName: '',
+    companyName: '',
+    slogan: '',
+    address1: '',
+    address2: '',
+    phone: '',
+    email: '',
+    country: '',
+    ig: '',
+    fb: '',
+    tw: '',
+    tq: '',
+    yt: '',
+    logo: 'No file uploaded',
+    createdAt: new Date()
+  }
+
+
+  const defaultValues = {
+    title: 'Deliciously Baked, Lovingly Made',
+    subtitle1: "Handcrafted cakes and pastries that bring joy to every occasion, ",
+    subtitle2: "made with the finest ingredients and a touch of love.",
+    cat1: 'Category One',
+    cat1_desc: 'Short description from category one',
+    cat2: 'Category Two',
+    cat2_desc: 'Short description from category two',
+    cat3: 'Category Three',
+    cat3_desc: 'Short description from category three',
+    about_img_url: 'https://img.freepik.com/premium-photo/portrait-smiling-female-baker-leaning-stack-bread_604472-24133.jpg',
+    about_name: 'Patric Ola Yawson',
+    about_title: 'Our Chief',
+    about_text: "Discover the range of delights that Sandy's Cake offers. From decadent cakes to mouthwatering pastries, our creations are crafted with passion and precision. Whether for a special celebration or a sweet craving, Discover the range of delights that Sandy's Cake offers. From decadent cakes to mouthwatering pastries, our creations are crafted with passion and precision. Whether for a special celebration or a sweet craving, we have the perfect treat to make your day extraordinary. Explore our menu, book your custom order, and enjoy the finest baked goods made with love and the best ingredients.",
+    more_sandy: "Discover the range of delights that Sandy's Cake offers. From decadent cakes to mouthwatering pastries, our creations are crafted with passion and precision. Whether for a special celebration or a sweet craving, we have the perfect treat to make your day extraordinary. Explore our menu, book your custom order, and enjoy the finest baked goods made with love and the best ingredients.",
+    company: [],
+    del: 'no',
+    created_at: new Date(),
+    updated_at: null,
+  }
+  
+  const { curPage } = useContext(OrderContext)
+  const [ newCurPage, setNewCurPagae ] = useState(defaultValues)
+  const { title, subtitle1, subtitle2, cat1, cat1_desc, cat2, cat2_desc, cat3, cat3_desc, about_img_url, about_name, about_title, about_text, more_sandy, created_at, del } = newCurPage
+  console.log('cur: ', newCurPage)
+
+  useEffect(() => {
+    if (curPage) {
+        console.log('newCur: ', curPage.cat1)
+        setNewCurPagae(curPage)
+    }
+  }, [curPage])
+
   return (
+    <>
+    {/* { newCurPage ? */}
     <>
     <div className="header">
       <HomeHeader />
@@ -54,7 +109,7 @@ const callouts = [
                     <h4 className='text-center uppercase text-xs tracking-widest text-brown-400'>Browse through our list</h4>
 
                     <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
-                        {callouts.map((callout) => (
+                        {/* {callouts.map((callout) => (
                         <div key={callout.name} className="group relative">
                             <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
                                 <img
@@ -71,7 +126,57 @@ const callouts = [
                             </h3>
                             <p className="text-base font-semibold text-gray-900">{callout.description}</p>
                         </div>
-                        ))}
+                        ))} */}
+                        <div className="group relative">
+                            <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                                <img
+                                    src="https://i.pinimg.com/564x/16/fb/99/16fb9968fcc654addbc7a21ade300d3a.jpg"
+                                    alt="https://i.pinimg.com/564x/16/fb/99/16fb9968fcc654addbc7a21ade300d3a.jpg"
+                                    className="h-full w-full object-cover object-center"
+                                />
+                            </div>
+                            <h3 className="mt-6 text-sm text-gray-500">
+                            <a href="">
+                                <span className="absolute inset-0" />
+                                {cat1}
+                            </a>
+                            </h3>
+                            <p className="text-base font-semibold text-gray-900">{cat1_desc}</p>
+                        </div>
+
+                        <div className="group relative">
+                            <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                                <img
+                                    src="https://i.pinimg.com/564x/6b/3a/6e/6b3a6e4dc26aca5a3df6247b07d78d24.jpg"
+                                    alt="https://i.pinimg.com/564x/6b/3a/6e/6b3a6e4dc26aca5a3df6247b07d78d24.jpg"
+                                    className="h-full w-full object-cover object-center"
+                                />
+                            </div>
+                            <h3 className="mt-6 text-sm text-gray-500">
+                            <a href="">
+                                <span className="absolute inset-0" />
+                                {cat2}
+                            </a>
+                            </h3>
+                            <p className="text-base font-semibold text-gray-900">{cat2_desc}</p>
+                        </div>
+
+                        <div className="group relative">
+                            <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                                <img
+                                    src="https://i.pinimg.com/564x/5e/21/94/5e2194154e9a83fff4cca190085f8984.jpg"
+                                    alt="https://i.pinimg.com/564x/5e/21/94/5e2194154e9a83fff4cca190085f8984.jpg"
+                                    className="h-full w-full object-cover object-center"
+                                />
+                            </div>
+                            <h3 className="mt-6 text-sm text-gray-500">
+                            <a href="">
+                                <span className="absolute inset-0" />
+                                {cat3}
+                            </a>
+                            </h3>
+                            <p className="text-base font-semibold text-gray-900">{cat3_desc}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,12 +201,7 @@ const callouts = [
 
                         <div className="group relative feature-more bg-orange-100/60">
                             <h3>More from Sandy's</h3>
-                            <p>Discover the range of delights that Sandy's Cake offers. 
-                                From decadent cakes to mouthwatering pastries, our creations are 
-                                crafted with passion and precision. Whether for a special celebration or a sweet craving, 
-                                we have the perfect treat to make your day extraordinary. Explore our menu, book your 
-                                custom order, and enjoy the finest baked goods made with love and the best ingredients.
-                            </p>
+                            <p>{more_sandy}</p>
                         </div>
                     </div>
 
@@ -133,7 +233,9 @@ const callouts = [
         </div>
     </div>
 
-    <ContactForm />
+    <ContactForm company={newCurPage.company} />
+    </>
+    {/* :null} */}
     </>
   )
 }
