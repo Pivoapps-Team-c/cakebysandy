@@ -16,6 +16,8 @@ import AboutPage from './routes/home/about.components';
 import PagesEdit from './routes/admin/pages.components';
 import DocsEdit from './routes/admin/docs.components';
 import SettingsEdit from './routes/admin/settings.components';
+import RequireAuth from './components/RequireAuth';
+import LoginPage from './routes/auth/login.components';
 
 function App() {
   return (
@@ -49,11 +51,14 @@ function App() {
         <Route path='/book' element={<PreOrderPage />} />
         <Route path='/terms' element={<TermsAndConditions />} />
         <Route path='/privacy' element={<PrivacyPolicy />} />
-        <Route path='/manage' element={<InquiryView />} />
-        <Route path='/inquiry' element={<InquiryView />} />
-        <Route path='/orders' element={<OrdersView />} />
-        <Route path='/pages' element={<PagesEdit />} />
-        <Route path='/settings' element={<SettingsEdit />} />
+        <Route element={<RequireAuth allowedRoles='user'/>}>
+          <Route path='/manage' element={<InquiryView />} />
+          <Route path='/inquiry' element={<InquiryView />} />
+          <Route path='/orders' element={<OrdersView />} />
+          <Route path='/pages' element={<PagesEdit />} />
+          <Route path='/settings' element={<SettingsEdit />} />
+        </Route>
+        <Route path='login' element={<LoginPage />}/>
       </Route>
     </Routes>
     <Toaster richColors/>

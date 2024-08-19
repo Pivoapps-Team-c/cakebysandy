@@ -80,11 +80,10 @@ const HomePage = () => {
   const { curPage } = useContext(OrderContext)
   const [ newCurPage, setNewCurPagae ] = useState(defaultValues)
   const { title, subtitle1, subtitle2, cat1, cat1_desc, cat2, cat2_desc, cat3, cat3_desc, about_img_url, about_name, about_title, about_text, more_sandy, created_at, del } = newCurPage
-  console.log('cur: ', newCurPage)
+//   console.log('cur: ', newCurPage)
 
   useEffect(() => {
     if (curPage) {
-        console.log('newCur: ', curPage.cat1)
         setNewCurPagae(curPage)
     }
   }, [curPage])

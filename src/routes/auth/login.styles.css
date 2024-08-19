@@ -1,0 +1,127 @@
+
+.login-content {
+    background-image: url(../../assets/images/cakes_bg_brown.png);
+}
+
+.login-container-size {
+    @apply flex my-6 w-full;
+}
+ 
+.login-left {
+    @apply w-[calc(40%-1px)] bg-white rounded-l-2xl my-3 shadow-lg;
+}
+
+.login-left img {
+    @apply w-[calc(70%-24px)] m-[calc(30%/2)];
+}
+
+.login-right {
+    @apply w-[calc(60%-1px)] bg-teal-700 rounded-2xl shadow-2xl;
+    background: url(https://i.pinimg.com/474x/cd/7f/bb/cd7fbbba6d14b48a334f18659112ebc4.jpg);
+    background-size: 100%
+}
+
+.login-right2 {
+    @apply w-full py-4 bg-teal-700 rounded-2xl shadow-2xl;
+    background: url(https://i.pinimg.com/474x/e3/d8/e1/e3d8e1cdb4048cc7540e53cb7a7d372f.jpg);
+    background-size: 100%
+}
+
+.inner2 {
+    @apply bg-white/90 rounded-lg mx-4 my-20 py-10 px-4 shadow-md;
+}
+
+.sign-in {
+    @apply text-2xl font-light mb-4 mx-10;
+}
+
+.register-container {
+    @apply text-center -mt-10;
+}
+
+.register-container p {
+    @apply text-xs font-light;
+}
+
+.register-container h3 {
+    @apply text-xs bg-teal-700 text-white rounded-md px-3 py-1.5 hover:opacity-80 m-1 w-28 mx-[calc((100%-116px)/2)];
+}
+
+#reg2 { 
+    /* display: none;  */
+    @apply mt-12;
+}
+ 
+.items-input-group {
+    @apply 
+    /* w-[calc(80%-1px)] mx-[calc(20%/2)]  */
+    my-2;
+}
+
+.items-input-group p {
+    @apply text-right text-xs font-light;
+}
+
+/* .myinput-st {
+    @apply placeholder:bg-green-500 active:text-sky-500;
+} */
+
+
+
+
+
+
+
+
+/* @media (max-width: 1400px) {
+    .login-container-size {
+        @apply flex my-20 w-4/6 mx-[calc(33%/2)];
+    }
+} */
+
+
+@media (max-width: 1300px) {
+    /* .login-container-size {
+        @apply w-4/6 mx-[calc(33%/2)];
+    } */
+}
+
+@media (max-width: 1100px) {
+    .inner2 {
+        @apply mx-4;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .inner2 {
+        @apply mx-2;
+    }
+
+    /* .inner2 div {
+        @apply !mx-4;
+    } */
+ 
+    /* .items-input-group {
+        @apply w-full;
+    } */
+
+    .login-container-size {
+        @apply mx-2 w-[calc(100%-16px)] flex-col;
+    }
+
+    .login-left {
+        display: none
+    }
+    
+    .login-right, .login-right2 {
+        @apply w-full rounded-3xl;
+    }
+
+    /* #reg2 { display: block; } */
+
+    .register-container {
+        @apply mt-5;
+    }
+
+}

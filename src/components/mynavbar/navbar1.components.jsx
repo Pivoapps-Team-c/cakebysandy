@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import './navbar.styles.scss'
+import useAuth from '../../hooks/useAuth'
+import { signOutUser, successToast } from '../../utils/firebase/firebase.utils'
+import { useNavigate } from 'react-router-dom'
 
 const navigation = [
   { name: 'About', href: '/about' },
@@ -11,7 +14,21 @@ const navigation = [
 ]
 
 export default function Navbar1() {
+
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { currentUser, setCurrentUser } = useAuth();
+
+
+  const signOutHandler = async () => {
+    await signOutUser();
+    setCurrentUser(null);
+    successToast('Logout Successful..!');
+
+    localStorage.setItem('curUser', '');
+    navigate('/');
+    // console.log(localStorage.getItem('curUser'));
+  }
 
   return (
     <header className="absolute inset-x-0 top-0 z-50 h-20 shadow-md">
@@ -47,9 +64,19 @@ export default function Navbar1() {
             ))}
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            { currentUser ?
+            // <a onClick={signOutHandler} className="text-sm font-semibold leading-6 text-gray-900">
+            //     Logout
+            // </a>
+            <a onClick={signOutHandler} className="rounded-md bg-brown-800 px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
+            >
+                Logout
+            </a>
+            :
             <a href="/manage" className="text-sm font-semibold leading-6 text-gray-900">
                 Log in <span aria-hidden="true">&rarr;</span>
             </a>
+            }
             </div>
         </nav>
 
@@ -88,12 +115,18 @@ export default function Navbar1() {
                     ))}
                 </div>
                 <div className="py-6">
-                    <a
-                    href="/manage"
+                    { currentUser ?
+                    <a onClick={signOutHandler} className="rounded-md bg-brown-800 px-3.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
+                    >
+                        Logout
+                    </a>
+                    :
+                    <a href="/manage" 
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >
                     Log in
                     </a>
+                    }
                 </div>
                 </div>
             </div>

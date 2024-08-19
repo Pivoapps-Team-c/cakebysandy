@@ -22,7 +22,7 @@ import { FaRegSave, FaRegTimesCircle, FaTimes, FaTimesCircle } from "react-icons
 import React, { useContext, useEffect, useId, useRef, useState } from "react";
 import { IoWarning } from "react-icons/io5";
 import Page1Home from './page1-home.components';
-import { imageDb, successToast } from '../../utils/firebase/firebase.utils';
+import { imageDb, infoToast, successToast } from '../../utils/firebase/firebase.utils';
 import ReactQuill from 'react-quill';
 import 'quill/dist/quill.snow.css'; // Add css for snow theme
 import { OrderContext } from '../../context/order.context';
@@ -32,6 +32,7 @@ import { TbCurrentLocation, TbGlobe } from 'react-icons/tb';
 import { TiPhoneOutline } from 'react-icons/ti';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from "uuid";
+import { Link } from 'react-router-dom';
 
 const PagesEdit = () => {
 
@@ -52,7 +53,7 @@ const PagesEdit = () => {
     tw: '',
     tq: '',
     yt: '',
-    logo: 'No file uploaded',
+    logo: 'https://img.freepik.com/premium-vector/banned-icon-template-e_79145-490.jpg',
     createdAt: new Date()
   }
   const defaultValues = {
@@ -97,7 +98,8 @@ const PagesEdit = () => {
         console.log(val)
         getDownloadURL(val.ref).then(url=>{
           setImgUrl(data=>[...data,url])
-          setFormFields({...formFields, ['logo']:url})
+          setCompanyFields({...companyFields, ['logo']:url})
+          infoToast('Logo teporarily set. Click on "UPDATE COMPANY DETAILS" to update')
         })
       })
     }
@@ -105,12 +107,12 @@ const PagesEdit = () => {
 
   const handleTermsChange = (content) => {
     setTermsContent(content);
-    console.log(content)
+    // console.log(content)
   };
 
   const handlePrivacyChange = (content) => {
     setPrivacyContent(content);
-    console.log(content)
+    // console.log(content)
   };
 
 
@@ -123,6 +125,8 @@ const PagesEdit = () => {
 
   const handleUpdateCompany = async (event) => {
     event.preventDefault();
+
+    // return successToast('Company update successful')
 
     if (window.confirm("ClicK `OK` to confirm update")) { 
       // return console.log(1243567);
@@ -372,16 +376,17 @@ const PagesEdit = () => {
                     </Button>
                   </div>
                   <div>
-                    <img className='w-8 mx-2' src={logo} alt="" />
+                    {/* <img className='w-8 mx-2' src={defaultCompanyValues.logo} alt="" /> */}
                   </div>
                 </div>
-                
-                {/* <div className=' my-2'>
-                  <img className='w-8 h-8 mx-2' src={logo} alt="Company Logo" />
-                  <h4 className='blue-head text-xs'><Link to={logo}>{logo}</Link></h4>
+                { logo ? 
+                <div className='my-2'>
+                  <img className='w-10 mx-2' src={logo} alt="" />
+                  <h4 className='blue-head text-xs mt-1'><Link to={logo}>{logo}</Link></h4>
                 </div>
+                :null}
 
-                <hr className="my-2 border-blue-gray-50" /> */}
+                <hr className="my-2 border-blue-gray-50" />
 
                 <div className=''>
                   { formFields.company
