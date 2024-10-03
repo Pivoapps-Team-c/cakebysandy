@@ -216,7 +216,7 @@ const HomePage = () => {
                             <p>In all sizes & quntities</p>
                         </div>
                         <div className="feat-b-item">
-                            <img src={cupcake} alt="" />
+                            <img src="https://firebasestorage.googleapis.com/v0/b/cakebysandy-a4e24.appspot.com/o/files%2Fbday.png?alt=media&token=bde32ec8-f3e5-44d0-9995-7839ea0e1140" alt="" />
                             <h4>Birthday Cakes</h4>
                             <p>In your prefered size</p>
                         </div>

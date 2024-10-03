@@ -98,6 +98,12 @@ export const resetPassword = (email) => sendPasswordResetEmail(auth, email);
 export const onAuthStateChangeListener = (callback) => onAuthStateChanged(auth, callback);
 
 
+export const apiUrl = () => {
+    const url = 'http://127.0.0.1:8000/api';
+    // const url = 'https://cakebysandydb.cakebysandy.com/api';
+    return url;
+};
+
 
 
 
@@ -112,6 +118,15 @@ export const createInquiryDoc = async (docToAdd) => {
         console.log('Error occoured at Inquiry: ', error.message);
     }
     
+}
+
+export const updateInquiryDoc = async (inqDoc) => {
+    const upRefValue = doc(db, 'inquiries', inqDoc.id);
+    try {
+        await updateDoc(upRefValue, inqDoc);
+    } catch (error) {
+        console.log('Error occoured at Inquiry: ', error.message);
+    }
 }
 
 export const getInquiryDocs = async () => {

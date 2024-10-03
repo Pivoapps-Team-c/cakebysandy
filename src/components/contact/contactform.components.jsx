@@ -5,12 +5,13 @@ import React, { useContext, useState } from 'react'
 import './contactform.styles.scss'
 import { BiSupport } from 'react-icons/bi'
 import { OrderContext } from '../../context/order.context'
-import { successToast } from '../../utils/firebase/firebase.utils'
+import { apiUrl, successToast } from '../../utils/firebase/firebase.utils'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
 import { IoWarning } from 'react-icons/io5'
 import { FaRegCircleCheck } from 'react-icons/fa6'
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
 import { PiMapPinArea, PiMapPinAreaBold } from 'react-icons/pi'
+import axios from 'axios'
 
 
 const ContactForm = ({ company }) => {
@@ -47,6 +48,21 @@ const ContactForm = ({ company }) => {
     const submitInquiry = async (event) => {
         event.preventDefault()
 
+        formFields['inq_response'] = 'Thank you for contacting us. Our support team will reach out to you in less than 24hrs.'
+        
+        const fwdMail = await axios.put(apiUrl()+'/sendmail/nomail', formFields)
+        if (fwdMail) {
+            console.log('Result: ', fwdMail.data.result)
+            // console.log('Value: ', fwdMail.data.value)
+            // console.log('Value2: ', fwdMail.data.value2)
+        } else {
+            console.log('Mail Error: ', fwdMail.message)
+            return
+        }
+        successToast('Email broadcast successful')
+
+        // return
+
         // return successToast('Inquiry Submited. Our team will reach out to you in 24hrs');
         
         // if (termsChecked == false) {
@@ -57,7 +73,7 @@ const ContactForm = ({ company }) => {
         await addInquiry(formFields).then(
             setInquirText('y'),
             setInquire(!inquire),
-            setFormFields([])
+            // setFormFields([])
         );
         
     }

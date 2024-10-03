@@ -179,7 +179,7 @@ export function Form1({ sendOrderStatus }) {
         const localStore = localStorage.getItem('formFields');
         if (localStore) {
             setFormFields(JSON.parse(localStore))
-            console.log('local Store', localStore)
+            // console.log('local Store', localStore)
         }
     }, [])
 

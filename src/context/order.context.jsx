@@ -1,11 +1,12 @@
 import { Children, createContext, useEffect, useState } from "react";
-import { createOrderDoc, createInquiryDoc, getOrderDocs, getInquiryDocs, successToast, updateOrderDoc, getCurrentPage, createPagesDoc, delAllPages, updatePagesDoc } from "../utils/firebase/firebase.utils";
+import { createOrderDoc, createInquiryDoc, getOrderDocs, getInquiryDocs, successToast, updateOrderDoc, getCurrentPage, createPagesDoc, delAllPages, updatePagesDoc, updateInquiryDoc } from "../utils/firebase/firebase.utils";
 
 
 export const OrderContext = createContext({
     inquiries: [],
     addInquiry: () => {},
     getInquiry: () => {},
+    updateInquiry: () => {},
     orders: [],
     addOrder: () => {},
     getOrders: () => {},
@@ -28,6 +29,14 @@ export const OrderProvider = ({children}) => {
     await createInquiryDoc(docToAdd).then(
       // getInquiry(),
       successToast('Inquiry Submited. Our team will reach out to you in 24hrs'),
+      // console.log('Inquiry Submited. Our team will reach out to you in 24hrs')
+    );
+  }
+
+  const updateInquiry = async (docToAdd) => {
+    await updateInquiryDoc(docToAdd).then(
+      // getInquiry(),
+      successToast('Reply Sent.'),
       // console.log('Inquiry Submited. Our team will reach out to you in 24hrs')
     );
   }
@@ -98,7 +107,7 @@ export const OrderProvider = ({children}) => {
 
 
   const value = { 
-    inquiries, addInquiry, 
+    inquiries, addInquiry, updateInquiry,
     orders, addOrder, getOrders, updateOrder,
     curPage, addPage, getCurPage
   };

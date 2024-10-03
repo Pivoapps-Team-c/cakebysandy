@@ -55,7 +55,7 @@ const TermsAndConditions = () => {
                 <p>Full payment is required at the time of order placement. We accept major credit cards, PayPal, and cash for in-person orders. Prices are subject to change without notice.</p>
                 
                 <h2>4. Cancellations and Refunds</h2>
-                <p>Cancellations must be made at least 48 hours before the scheduled pickup or delivery time to receive a full refund. For cancellations made within 48 hours, a 50% refund will be issued. No refunds will be given for cancellations made less than 24 hours before the scheduled pickup or delivery time.</p>
+                <p>Cancellations must be made at least 2 weeks before the scheduled pickup or delivery time to receive a full refund. For cancellations made within less than 1 week, a 20% - 50% refund will be issued. No refunds will be given for cancellations made less than 72 hours before the scheduled pickup or delivery time.</p>
                 
                 <h2>5. Delivery and Pickup</h2>
                 <p>We offer delivery within a 20-mile radius of our bakery for an additional fee. Delivery times are subject to availability. Customers are responsible for providing accurate delivery information. Pickup orders must be collected within the agreed-upon time frame. We are not responsible for orders left uncollected.</p>
