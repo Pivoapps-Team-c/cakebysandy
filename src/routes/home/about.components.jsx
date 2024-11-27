@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import ContactForm from '../../components/contact/contactform.components'
 import SubHeader from '../../components/subheader/subheader.components'
 import { useOrder } from '../../hooks/useAuth'
+import GaleryItems from '../gallery/gallery-items.components'
+import { DialogDefault, TestComps } from '../gallery/test-comps.components'
 
 const AboutPage = () => {
     const { curPage } = useOrder();
@@ -17,13 +19,14 @@ const AboutPage = () => {
   return (
     <>
 
-    <SubHeader h2="About Us" h6="Find out what we do here" />
+    <SubHeader h2="About Us" h6="Find out what we do here" disp="hidden" />
 
     {page ? 
     <>
         <div className="bg-white cake-categories">
             <div className="">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-white">
+                    
                     <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
                         <h2 className="pannel-header">About Cake by Sandy</h2>
                         <h4 className='text-center uppercase text-xs tracking-widest text-brown-400'>Read a little about us</h4>

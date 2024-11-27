@@ -296,3 +296,11 @@
 .feat-b-item p {
     @apply text-sm tracking-widest text-orange-900/80;
 }
+
+.gallery-filter {
+    @apply w-full sm:w-1/3 border border-orange-900/80 flex px-5 py-1 text-xs rounded-md my-4;
+}
+
+.gallery-filter select {
+    @apply p-2 mx-2 outline-none w-full;
+}

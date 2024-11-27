@@ -5,11 +5,14 @@ import './navbar.styles.scss'
 import useAuth from '../../hooks/useAuth'
 import { signOutUser, successToast } from '../../utils/firebase/firebase.utils'
 import { useNavigate } from 'react-router-dom'
+import { FaOutdent } from 'react-icons/fa6'
+import { BsCaretRight, BsCaretRightFill } from 'react-icons/bs'
+import siteLogo from '../../assets/images/cakeIcon.png'
 
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
-//   { name: 'Gallery', href: '/gallery' },
+  { name: 'Gallery', href: '/gallery' },
   { name: 'Contact', href: '/#contact' },
   { name: 'Book', href: '/book' },
 ]
@@ -90,7 +93,7 @@ export default function Navbar1() {
                 <span className="sr-only">Your Company</span>
                 <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    src={siteLogo}
                     alt=""
                 />
                 </a>
@@ -107,7 +110,8 @@ export default function Navbar1() {
                 <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
                     {navigation.map((item) => (
-                    <a key={item.name} href={item.href} className="-mx-3 block rounded-lg px-3 py-2 text-base font-medium uppercase tracking-wider leading-7 text-gray-900 hover:bg-gray-50" >
+                    <a key={item.name} href={item.href} className="-mx-3 block rounded-lg bg-orange-500/10 px-3 py-2 text-sm font-normal uppercase tracking-wider leading-7 text-gray-900 hover:bg-gray-50" >
+                        <BsCaretRightFill className='mt-1.5 mr-3 float-left' />
                         {item.name}
                     </a>
                     ))}
@@ -119,10 +123,13 @@ export default function Navbar1() {
                         Logout
                     </a>
                     :
-                    <a href="/manage" 
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >
-                    Log in
+                    // <a href="/manage" 
+                    // className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    // >
+                    // Log in
+                    // </a>
+                    <a href='/manage' className="rounded-md bg-orange-500/80 px-5 py-2 m-auto text-sm font-medium uppercase text-brown-800 shadow-sm hover:bg-orange-400">
+                        Login
                     </a>
                     }
                 </div>

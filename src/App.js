@@ -18,6 +18,7 @@ import DocsEdit from './routes/admin/docs.components';
 import SettingsEdit from './routes/admin/settings.components';
 import RequireAuth from './components/RequireAuth';
 import LoginPage from './routes/auth/login.components';
+import GaleryPage from './routes/home/gallery.components';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
       <Route path='/' element={<NavigationPage />}>
         <Route index element={<HomePage/>} />
         <Route path='/about' element={<AboutPage />} />
+        <Route path='/gallery' element={<GaleryPage />} />
         <Route path='/book' element={<PreOrderPage />} />
         <Route path='/terms' element={<TermsAndConditions />} />
         <Route path='/privacy' element={<PrivacyPolicy />} />

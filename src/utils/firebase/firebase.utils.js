@@ -143,6 +143,39 @@ export const getInquiryDocs = async () => {
 
 // Clients
 
+export const createGalleryDoc = async (docToAdd) => {
+    const refValue = collection(db, 'gallery');
+    try {
+        await addDoc(refValue, docToAdd);
+    } catch (error) {
+        console.log('Error occoured at Gallery: ', error.message);
+    }
+    
+}
+
+export const getGalleryDocs = async () => {
+    const docsReceiver = [];
+    const querySnapshot = await getDocs(query(collection(db, 'gallery'), orderBy("created_at", "desc")));
+
+    const purMap = () => querySnapshot.forEach((doc) => {
+        docsReceiver.push({...doc.data(), id: doc.id});
+    });
+    purMap();
+    return docsReceiver;
+}
+
+export const updateGalleryDoc = async (client) => {
+    const upRefValue = doc(db, 'gallery', client.id);
+    try {
+        await updateDoc(upRefValue, client);
+    } catch (error) {
+        console.log('Error occoured at Gallery: ', error.message);
+    }
+}
+
+
+// Clients
+
 export const createOrderDoc = async (docToAdd) => {
     const refValue = collection(db, 'orders');
     try {

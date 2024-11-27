@@ -2,10 +2,10 @@
 
 import React from 'react'
 
-const SubHeader = ({ h2, h6 }) => {
+const SubHeader = ({ h2, h6, disp }) => {
   return (
     <>
-    <div className="header-container">
+    <div className={disp == 'hidden' ? "hidden" : "header-container"}>
       <div className="sub-header-shade">
 
         <div className="content-wrapper">

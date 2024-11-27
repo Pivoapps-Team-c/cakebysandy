@@ -22,7 +22,7 @@ import { FaRegSave, FaRegTimesCircle, FaTimes, FaTimesCircle } from "react-icons
 import React, { useContext, useEffect, useId, useRef, useState } from "react";
 import { IoWarning } from "react-icons/io5";
 import Page1Home from './page1-home.components';
-import { imageDb, infoToast, successToast } from '../../utils/firebase/firebase.utils';
+import { errorToast, imageDb, infoToast, successToast } from '../../utils/firebase/firebase.utils';
 import ReactQuill from 'react-quill';
 import 'quill/dist/quill.snow.css'; // Add css for snow theme
 import { OrderContext } from '../../context/order.context';
@@ -33,6 +33,7 @@ import { TiPhoneOutline } from 'react-icons/ti';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from "uuid";
 import { Link } from 'react-router-dom';
+import { useOrder } from '../../hooks/useAuth';
 
 const PagesEdit = () => {
 
@@ -78,7 +79,7 @@ const PagesEdit = () => {
   }
 
 
-  const { curPage, addPage, getCurPage } = useContext(OrderContext)
+  const { curPage, addPage, getCurPage, gallery, addToGal, getAllGal } = useOrder();
   const [ formFields, setFormFields ] = useState(defaultValues);
   const [ companyFields, setCompanyFields ] = useState(defaultCompanyValues);
   const [termsContent, setTermsContent] = useState('');
@@ -86,9 +87,18 @@ const PagesEdit = () => {
   const quillRef = useRef(null);
   const [img, setImg] = useState('')
   const [imgUrl, setImgUrl] = useState([])
+  const [cat, setCat] = useState('')
   
   const { companyDisplayName, companyName, slogan, address1, address2, phone, email, country, logo } = companyFields;
 
+
+  const handleCatChange = (event) => {
+    // const { name, value } = event.target;
+    // setCakeField({...CakeField, [name]: value, ['c']: formFields.cake_list.length + 1})
+    const cat = event.target.value;
+    setCat(cat)
+    // console.log(cat)
+  }
   
   const handleLogoUpload = (event) =>{
     // const { name, value } = event.target;
@@ -115,13 +125,11 @@ const PagesEdit = () => {
     // console.log(content)
   };
 
-
   const handleCompanyChange = (event) => {
     const { name, value } = event.target;
     setCompanyFields({...companyFields, [name]:value});
-    console.log(value);
+    // console.log(value);
   }
-
 
   const handleUpdateCompany = async (event) => {
     event.preventDefault();
@@ -136,12 +144,6 @@ const PagesEdit = () => {
     }
   }
 
-  // useEffect(() => {
-  //   // You can access the underlying Quill instance with quillRef.current.getEditor()
-  //   const quillInstance = quillRef.current.getEditor();
-  //   console.log('Quill instance:', quillInstance);
-  // }, []);
-
 
   const [open, setOpen] = useState(0);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
@@ -153,22 +155,92 @@ const PagesEdit = () => {
     // console.log(value)
   }
 
+  // const updateHomepage = async (msg, ct) => {
+  //   // return console.log(1243567);
+  //   formFields['company'] = companyFields
+  //   await addPage(formFields, msg).then(
+  //     setFormFields(curPage),
+  //     // getCurPage(),
+  //     setOpen(ct)
+  //   )
+  //   // formFields['subtitle1'] = 27;
+  //   // setFormFields([formFields])
+  // }
+
   const updateHomepage = async (msg, ct) => {
-    // return console.log(1243567);
-    formFields['company'] = companyFields
-    await addPage(formFields, msg).then(
-      setFormFields(curPage),
-      // getCurPage(),
-      setOpen(ct)
-    )
-    // formFields['subtitle1'] = 27;
-    // setFormFields([formFields])
-  }
+    formFields['company'] = companyFields;
+    // return 
+    console.log(formFields)
+    await addPage(formFields, msg).then(()=>{
+      // setFormFields(formFields);  // Ensure this updates after the async call  // Update the form fields after the async operation
+      setOpen(ct);
+    });
+  };
+
+
+
+
+
+  const [imgUrls, setImgUrls] = useState([]); // Array to store image URLs
+  const [images, setImages] = useState([]); // Array to hold selected images
+
+  const handleImgChange = (event) => {
+    // Set selected files in state
+    setImages(Array.from(event.target.files));
+    // console.log("Images: ", event.target.files)
+  };
+
+  const handleImagesUpload = (event, x, y) => {
+    // return console.log('EV: ', event)
+    if (cat == 0) {
+      return infoToast("Oops..! Sellect Category to Proceed");
+    }
+    if (images.length === 0) {
+      return errorToast("No images selected.");
+    }
+
+    // Map each image to a Promise that uploads it
+    const uploadPromises = images.map((img) => {
+      const imgRef = ref(imageDb, `gallery/${v4()}`);
+      return uploadBytes(imgRef, img).then((snapshot) =>
+        getDownloadURL(snapshot.ref)
+      );
+    });
+
+    // Use Promise.all to wait for all uploads to complete
+    Promise.all(uploadPromises)
+      .then((urls) => {
+        handleGalleryUpdate(urls)
+        console.log("Urls: ", urls)
+        console.log("ImgUrls: ", imgUrls)
+      })
+      .catch((error) => {
+        console.error("Error uploading images:", error);
+      });
+  };
+
+
+  const handleGalleryUpdate = (x) => {
+    const galleryDoc = {
+      cat: cat,
+      urls: x,
+      del: 'no',
+      created_at: new Date(),
+      updated_at: '',
+    };
+    addToGal(galleryDoc).then(() => {
+      // successToast("Gallery Update successful");
+      setOpen(3);
+      setImgUrls([]); // Clear image URL state
+      setImages([]); // Clear images state
+    });
+  };
+
 
   useEffect(() => {
     if (curPage) {
-      setFormFields(curPage)
-      setCompanyFields(curPage.company)
+      setFormFields(curPage);
+      setCompanyFields(curPage.company);
     }
     // console.log('curPage: ', curPage)
   }, [curPage]);
@@ -285,9 +357,45 @@ const PagesEdit = () => {
             </form>
           </AccordionBody>
         </Accordion>
-
+        
         <Accordion open={open === 3}>
           <AccordionHeader onClick={() => handleOpen(3)}>
+            <h1>Gallery</h1>
+          </AccordionHeader>
+          <AccordionBody>
+            <form id='' className="m-auto w-full max-w-screen-lg">
+              <div className="mb-1 flex flex-col gap-5">
+                {/* <div className="input-div">
+                  <Input variant="outlined" name="about_img_url" value={formFields.about_img_url} onChange={changeFieldText} type="text" size="lg" label="About Image Url" required/>
+                </div> */}
+
+                <div className="input-div">
+                  <select className="mySelect" variant="outlined" onChange={handleCatChange} name="gallery_cat" size="lg">
+                    <option value={0}>Select Category</option>
+                    <option value="Cupcake">Cupcake</option>
+                    <option value="Birthday Cake">Birthday Cake</option>
+                    <option value="Anniversary Cake">Anniversary Cake</option>
+                    <option value="Celebration CAke">Celebration Cake</option>
+                    <option value="Wedding Cake">Wedding Cake</option>
+                    <option value="Pastries">Pastries</option>
+                    <option value="Custom">Custom</option>
+                  </select>
+                </div>
+
+                <div className="input-div">
+                  <Input multiple type='file' variant="outlined" name="imgs" onChange={handleImgChange} accept="image/*" size="lg" label="Select Images" required/>
+                </div>
+
+                <div className="input-div">
+                    <Button type="button" onClick={handleImagesUpload} className="rounded-md">Update Gallery</Button>
+                </div>
+              </div>
+            </form>
+          </AccordionBody>
+        </Accordion>
+
+        <Accordion open={open === 4}>
+          <AccordionHeader onClick={() => handleOpen(4)}>
             <h1>Documents</h1>
           </AccordionHeader>
           <AccordionBody>
@@ -303,8 +411,8 @@ const PagesEdit = () => {
           </AccordionBody>
         </Accordion>
 
-        <Accordion open={open === 4}>
-          <AccordionHeader onClick={() => handleOpen(4)}>
+        <Accordion open={open === 5}>
+          <AccordionHeader onClick={() => handleOpen(5)}>
             <h1>Company Details</h1>
           </AccordionHeader>
           <AccordionBody>
@@ -391,7 +499,7 @@ const PagesEdit = () => {
                 <div className=''>
                   { formFields.company
                   ?<Button className='myBtn float-right' type='button' onClick={handleUpdateCompany}>&nbsp;&nbsp;<FaRegSave size='18' className='float-left'/>&nbsp;&nbsp;<span>Update Company Details</span>&nbsp;&nbsp;</Button>
-                  :<Button className='myBtn float-right' type='button' onClick={()=>updateHomepage("Company details updated", 4)}>&nbsp;&nbsp;<BsCheckCircle size='18' className='float-left'/>&nbsp;&nbsp;<span>Save Company Details</span>&nbsp;&nbsp;</Button>
+                  :<Button className='myBtn float-right' type='button' onClick={()=>updateHomepage("Company details updated", 5)}>&nbsp;&nbsp;<BsCheckCircle size='18' className='float-left'/>&nbsp;&nbsp;<span>Save Company Details</span>&nbsp;&nbsp;</Button>
                   }
                 </div>
               </div>
